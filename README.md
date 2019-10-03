@@ -1,4 +1,5 @@
 # supermarket
+<<<<<<< HEAD
 
 ## Project setup
 ```
@@ -27,3 +28,6 @@ yarn run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+=======
+supermarket management systerm
+>>>>>>> 551fecf4eace3183eddc2745e7345bea5c927505
