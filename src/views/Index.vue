@@ -4,7 +4,7 @@
       <h3>永辉超市管理系统</h3>
       <div class="avatar">
         <img src="../assets/images/avatar.jpg" />
-        <label>admin</label>
+        <label>{{ username }}</label>
       </div>
     </div>
     <div class="center">
@@ -39,10 +39,12 @@
 </template>
 
 <script>
+import { getToken } from '../apis/api'
 export default {
   data(){
     return {
       active:'/main/commoditymanagement',
+      username:'请登录',
       treeList:[
         {
           index:'1',
@@ -78,6 +80,13 @@ export default {
   },
   created(){
     this.active = location.hash.replace('#','')
+    getToken(localStorage.getItem('token')).then(res=>{
+      if(res.data==='ok'){
+          this.username = localStorage.getItem('username')
+      }else{
+          this.username = "请登录"
+      }
+    })
   },
   methods: {
     handleOpen(key, keyPath) {

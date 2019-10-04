@@ -4,7 +4,14 @@
       <div slot="header" class="clearfix">
         <span>更改密码</span>
       </div>
-      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="myForm">
+      <el-form
+        :model="ruleForm"
+        status-icon
+        :rules="rules"
+        ref="ruleForm"
+        label-width="100px"
+        class="myForm"
+      >
         <el-form-item label="原密码" prop="password">
           <el-input v-model="ruleForm.password" show-password></el-input>
         </el-form-item>
@@ -24,9 +31,10 @@
 </template>
 
 <script>
+import { changePassword } from "../../../apis/api";
 export default {
-     data() {
-      //原密码验证规则
+  data() {
+    //原密码验证规则
     var validatePass = (rule, value, callback) => {
       var reg = /^\w{3,8}$/;
       if (reg.test(value)) {
@@ -55,8 +63,8 @@ export default {
     return {
       ruleForm: {
         password: "",
-        newpassword:"",
-        checkpassword:""
+        newpassword: "",
+        checkpassword: ""
       },
       rules: {
         //验证规则
@@ -85,7 +93,24 @@ export default {
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
-        this.$router.push("/main/commoditymanagement");
+        if (valid) {
+          changePassword(
+            localStorage.getItem("id"),
+            this.ruleForm.password,
+            this.ruleForm.newpassword
+          ).then(res => {
+            if (res.data === "ok") {
+              this.$message({
+                message: "恭喜你，修改密码成功",
+                type: "success"
+              });
+            } else if(res.data === "fail") {
+              this.$message.error('很遗憾，密码修改失败');
+            }else{
+              this.$message.error('用户原密码输入不正确');
+            }
+          });
+        }
       });
     },
     resetForm(formName) {
@@ -96,5 +121,4 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
 </style>
