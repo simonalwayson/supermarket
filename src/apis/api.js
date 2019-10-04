@@ -21,8 +21,13 @@ export function changePassword(id,pwd,newpwd){
     return axios.post(IP+'/main/changepwd',{id,pwd,newpwd})
 }
 //账号管理-获取用户数据
-export function getUsers(){
-    return axios.get(IP+'/main/accountmanagement')
+export function getUsers(curpage,row){
+    return axios.get(IP+'/main/accountmanagement',{
+        params:{
+            curpage,
+            row
+        }
+    })
 }
 //账户管理-伤处账户
 export function deleteUser(id){
