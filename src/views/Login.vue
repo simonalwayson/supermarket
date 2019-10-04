@@ -11,9 +11,9 @@
         <el-form-item label="密码" prop="password">
           <el-input v-model="ruleForm.password" show-password></el-input>
         </el-form-item>
+        <p v-show="isShow">用户名或密码错误</p>
         <el-form-item>
           <el-button type="primary" @click="submitForm('ruleForm')">登陆</el-button>
-          <el-button @click="resetForm('ruleForm')">重置</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { login }from '../apis/api'
 export default {
   data() {
       //用户名验证规则
@@ -42,6 +43,7 @@ export default {
       }
     };
     return {
+      isShow:false,
       ruleForm: {
         name: "",
         password:""
@@ -67,11 +69,19 @@ export default {
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
-        this.$router.push("/main/commoditymanagement");
+        if(valid){//前端验证通过才可以发送请求
+          login(this.ruleForm.name,this.ruleForm.password).then(res=>{
+            if(res.data.msg === 'ok'){//登陆成功 
+              localStorage.setItem('id',res.data.id)//保存用户id
+              localStorage.setItem('username',this.ruleForm.name)//保存用户名
+              localStorage.setItem('usergroup',res.data.usergroup)//保存用户分组
+              localStorage.setItem('token',res.data.token)//保存token对象
+              this.$router.push("/main/commoditymanagement");//跳转到主页
+            }else
+              this.isShow = true;//显示提示信息
+          }) 
+        }
       });
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
     }
   }
 };
