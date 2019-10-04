@@ -20,7 +20,7 @@
           unique-opened
           router
         >
-          <el-submenu v-for="item in treeList" :index="item.index" :key="item.index">
+          <el-submenu v-for="item in treeList" :index="item.index" :key="item.index" v-show="item.userGroup.indexOf(usergroup) != -1">
             <template slot="title">
               <i :class="item.icon"></i>
               <span>{{ item.name }}</span>
@@ -45,6 +45,7 @@ export default {
     return {
       active:'/main/commoditymanagement',
       username:'请登录',
+      usergroup:'',
       treeList:[
         {
           index:'1',
@@ -53,7 +54,8 @@ export default {
           child:[
             {index:'/main/commoditymanagement',name:'商品管理'},
             {index:'/main/addcommodity',name:'添加商品'}
-          ]
+          ],
+          userGroup:["1","2"]
         },
         {
           index:'2',
@@ -62,7 +64,8 @@ export default {
           child:[
             {index:'/main/stockmanagement',name:'进货统计'},
             {index:'/main/salesmanagement',name:'销售统计'}
-          ]
+          ],
+          userGroup:["1"]
         },
         {
           index:'3',
@@ -72,7 +75,8 @@ export default {
             {index:'/main/accountmanagement',name:'账号管理'},
             {index:'/main/addaccount',name:'添加账号'},
             {index:'/main/changepassword',name:'修改密码'}
-          ]
+          ],
+          userGroup:["1"]
         },
 
       ]
@@ -80,6 +84,7 @@ export default {
   },
   created(){
     this.active = location.hash.replace('#','')
+    this.usergroup = localStorage.getItem('usergroup')
     getToken(localStorage.getItem('token')).then(res=>{
       if(res.data==='ok'){
           this.username = localStorage.getItem('username')
@@ -90,10 +95,10 @@ export default {
   },
   methods: {
     handleOpen(key, keyPath) {
-      console.log(key, keyPath);
+      // console.log(key, keyPath);
     },
     handleClose(key, keyPath) {
-      console.log(key, keyPath);
+      // console.log(key, keyPath);
     }
   }
 };

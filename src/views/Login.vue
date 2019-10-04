@@ -74,6 +74,7 @@ export default {
             if(res.data.msg === 'ok'){//登陆成功 
               localStorage.setItem('id',res.data.id)//保存用户id
               localStorage.setItem('username',this.ruleForm.name)//保存用户名
+              localStorage.setItem('usergroup',res.data.usergroup)//保存用户分组
               localStorage.setItem('token',res.data.token)//保存token对象
               this.$router.push("/main/commoditymanagement");//跳转到主页
             }else
