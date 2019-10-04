@@ -21,10 +21,32 @@ export function changePassword(id,pwd,newpwd){
     return axios.post(IP+'/main/changepwd',{id,pwd,newpwd})
 }
 //账号管理-获取用户数据
-export function getUsers(){
-    return axios.get(IP+'/main/accountmanagement')
+export function getUsers(curpage,row){
+    return axios.get(IP+'/main/accountmanagement',{
+        params:{
+            curpage,
+            row
+        }
+    })
 }
-//账户管理-伤处账户
+//账户管理-删除账户
 export function deleteUser(id){
     return axios.get(IP+'/removeaccount',{params:{id}})
+}
+
+//商品管理-添加商品
+export function addCommodity(category,barCode,name,salePrice,marketPrice,stockPrice,stockCount,commodityWeight,commodityUnit,vipDiscount,promotion,goodsDesc){
+    return axios.get(IP+'/main/addcommodity',
+    {params:{
+        category,barCode,name,salePrice,marketPrice,stockPrice,stockCount,commodityWeight,commodityUnit,vipDiscount,promotion,goodsDesc
+    }})
+}
+//商品管理-获取商品数据
+export function getCommodity(curpage,row){
+    return axios.get(IP+'/main/commoditymanagement',{
+        params:{
+            curpage,
+            row
+        }
+    })
 }

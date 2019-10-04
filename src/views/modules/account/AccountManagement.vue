@@ -22,6 +22,15 @@
           </template>
         </el-table-column>
       </el-table>
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-sizes="[10, 20, 40]"
+        :page-size="pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total"
+      ></el-pagination>
     </el-card>
   </div>
 </template>
@@ -31,13 +40,24 @@ import { getUsers, deleteUser } from "../../../apis/api";
 export default {
   data() {
     return {
-      tableData: []
+      tableData: [],
+      currentPage: 1,
+      pageSize:10,
+      total:0
     };
   },
   created() {
-    this.getUserData();
+    this.getUserData(this.currentPage);
   },
   methods: {
+    handleSizeChange(val) {
+      this.pageSize = val
+      this.getUserData(this.currentPage);
+    },
+    handleCurrentChange(val) {
+      this.currentPage = val
+      this.getUserData(this.currentPage);
+    },
     handleEdit(index, row) {
       //   console.log(index, row);
     },
@@ -58,7 +78,7 @@ export default {
               this.$message.error("删除账号失败");
             }
           });
-          this.getUserData();
+          this.getUserData(this.currentPage);
         })
         .catch(() => {
           this.$message({
@@ -67,9 +87,10 @@ export default {
           });
         });
     },
-    getUserData() {
-      getUsers().then(res => {
-        this.tableData = res.data;
+    getUserData(currentPage) {
+      getUsers(currentPage,this.pageSize).then(res => {
+        this.tableData = res.data.data;
+        this.total = res.data.total;
       });
     }
   }
