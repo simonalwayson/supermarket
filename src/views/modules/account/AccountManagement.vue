@@ -88,9 +88,13 @@ export default {
         });
     },
     getUserData(currentPage) {
+<<<<<<< HEAD
+      getUsers(currentPage,this.pageSize).then(res => {
+=======
 
       getUsers(currentPage,this.pageSize).then(res => {
         console.log(res)
+>>>>>>> b8b76c80e1fbb1c6d7c0587f2cd5ceab0be5c85a
         this.tableData = res.data.data;
         this.total = res.data.total;
       });
