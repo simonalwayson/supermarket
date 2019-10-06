@@ -27,6 +27,7 @@ export default new Router({
         {path: '/main/accountmanagement', meta:{requireAuth:true}, name: 'accountmanagement',component: () => import('./views/modules/account/AccountManagement.vue')},//账号管理
         {path: '/main/addaccount', meta:{requireAuth:true}, name: 'addaccount',component: () => import('./views/modules/account/AddAccount.vue')},//添加账号
         {path: '/main/changepassword', meta:{requireAuth:true}, name: 'changepassword',component: () => import('./views/modules/account/ChangePassword.vue')},//更改密码
+        {path: '/main/uploadavatar', meta:{requireAuth:true}, name: 'uploadavatar',component: () => import('./views/modules/account/UploadAvatar.vue')},//上传头像
       ]
     }
   ]

@@ -74,7 +74,9 @@ export default {
           child:[
             {index:'/main/accountmanagement',name:'账号管理'},
             {index:'/main/addaccount',name:'添加账号'},
-            {index:'/main/changepassword',name:'修改密码'}
+            {index:'/main/changepassword',name:'修改密码'},
+            {index:'/main/uploadavatar',name:'上传头像'}
+
           ],
           userGroup:["1"]
         },

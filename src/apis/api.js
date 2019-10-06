@@ -50,3 +50,8 @@ export function getCommodity(curpage,row){
         }
     })
 }
+
+//统计管理-获取统计数据
+export function getEchartsData(){
+    return axios.get(IP+'/getechartsdata')
+}
