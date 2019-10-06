@@ -25,7 +25,7 @@
               </el-select>
             </el-form-item>
             <el-form-item label="商品售价" prop="salePrice">
-              <el-input v-model="ruleForm.salePrice">元</el-input>
+              <el-input v-model="ruleForm.salePrice"></el-input>
             </el-form-item>
             <el-form-item label="商品进价" prop="stockPrice">
               <el-input v-model="ruleForm.stockPrice"></el-input>
